@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEANDAINYA SAYA KAMU – Sobat BK</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top">
+  <div class="strip"><span><b>Sobat BK</b>Teman cerita di ruang BK</span><span class="sch"></span></div>
+  <header>
+    <button class="brand" onclick="show('welcome')" title="Kembali ke beranda"><span class="bn">SEANDAINYA SAYA KAMU</span><small>Belajar memahami perasaan orang lain</small></button>
+    <nav aria-label="Menu utama">
+      <button id="tW" onclick="show('welcome')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Beranda</button>
+      <button id="tH" onclick="show('home')"><svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h5"/></svg>Ruang cerita</button>
+      <button id="tE" onclick="show('editor')"><svg viewBox="0 0 24 24"><path d="M4 20l1-5L16 4l4 4L9 19z"/></svg>Editor Guru BK</button>
+      <button id="tG" onclick="show('guide')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg>Cara penggunaan</button>
+      <button onclick="openSet()"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>Pengaturan</button>
+    </nav>
+  </header>
+</div>
+
+<main>
+  <section id="welcome" class="welcome">
+    <div>
+      <p class="hello">Halo, Sobat! Selamat datang di jam BK. Hari ini kita baca cerita bareng-bareng. Coba bayangkan kalau kamu ada di posisi tokohnya: apa yang kamu rasakan, dan apa yang akan kamu lakukan?</p>
+      <h1>SEANDAINYA SAYA KAMU</h1>
+      <p class="school sch"></p>
+      <p id="rem" class="rem" hidden role="alert"></p>
+      <div class="menu">
+        <button class="cta" onclick="show('home')"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h6a3 3 0 0 1 2 1 3 3 0 0 1 2-1h6v13h-6a3 3 0 0 0-2 1 3 3 0 0 0-2-1H4z"/><path d="M12 6v13"/></svg></span><span><b>Mulai ruang cerita</b><em>Pilih cerita dan baca bersama teman sekelas</em></span><span class="go" aria-hidden="true">&rarr;</span><span class="tag" id="cnt"></span></button>
+        <button onclick="show('guide')" style="--h:285"><i class="dotc"></i><span><b>Cara penggunaan</b><em>Panduan lengkap dan cara menyimpan data</em></span></button>
+      </div>
+    </div>
+    <div class="wframe"><div id="wvis"></div><p class="cap">Yuk, lihat ceritanya dari sudut pandang orang lain!</p></div>
+  </section>
+
+  <section id="home" hidden>
+    <div class="hero"><h2>Pilih ceritamu hari ini</h2><p>Baca ceritanya bareng-bareng, lalu ceritakan apa yang kamu rasakan.</p></div>
+    <div class="flt" id="flt" role="group" aria-label="Pilih jenjang"></div>
+    <div class="flt"><input type="text" id="q" placeholder="Cari judul atau tema…" aria-label="Cari cerita" oninput="pg.g=1;grid()" style="max-width:22rem"></div>
+    <div class="grid" id="grid"></div>
+    <div class="pgn" id="gpg" role="navigation" aria-label="Halaman cerita"></div>
+  </section>
+
+  <section id="play" hidden>
+    <div class="pzoom"><button onclick="zoom(-.1)" aria-label="Perkecil tampilan">Zoom out &minus;</button><button onclick="zoom(.1)" aria-label="Perbesar tampilan">Zoom in +</button></div>
+    <button class="pback" onclick="present(false)" title="Keluar dari mode presentasi (Esc)">Kembali</button>
+    <div class="bar">
+      <button onclick="show('home')">Kembali ke daftar cerita</button>
+      <span class="pg" id="pg"></span>
+      <button class="btn" onclick="present(true)" title="Layar penuh untuk proyektor atau IFP (tombol P)">Mode presentasi</button>
+    </div>
+    <div class="prog"><i id="pb"></i></div>
+    <div class="stage" id="stage">
+      <div class="vis" id="vis"></div>
+      <div class="txt">
+        <p class="theme" id="pTheme" style="align-self:flex-start"></p>
+        <h2 id="pTitle"></h2>
+        <span class="lab" id="pLab"></span>
+        <p class="nar" id="pN"></p>
+        <p class="ref" id="pP"></p>
+        <div class="cb" id="cb"></div>
+        <button class="btn vw" id="rq" onclick="shown=true;draw()" hidden>Tampilkan pertanyaan</button>
+        <button class="vw" id="vw" onclick="alt=!alt;shown=false;draw()" hidden></button>
+        <p class="ref" id="cls" hidden></p>
+      </div>
+    </div>
+    <div class="tl">
+      <button onclick="tog('#emo')">Kartu perasaan</button>
+      <button onclick="speak()">Bacakan</button>
+      <button id="tmr" onclick="timer()">Timer 2:00</button>
+      <button onclick="rnd()">Pilih nomor acak</button>
+      <button onclick="printW()">Cetak lembar kerja</button>
+    </div>
+    <div id="emo" class="emo" hidden></div>
+    <details id="nt" class="gnote" hidden><summary>Catatan guru</summary><div class="gb" id="ntb"></div></details>
+    <div class="ctl">
+      <button id="prev" onclick="move(-1)">Sebelumnya</button>
+      <div class="dots" id="dots"></div>
+      <button id="next" class="btn" onclick="move(1)">Selanjutnya</button>
+    </div>
+  </section>
+
+  <section id="editor" hidden>
+    <div class="hero" style="margin-bottom:1.2rem"><h2>Bank cerita BK</h2><p>Tambah, ubah, salin, atau hapus cerita. Jumlah bagian bebas, dan setiap cerita bisa diberi foto sampul serta gambar di tiap bagian.</p></div>
+    <div class="tools">
+      <button class="btn" onclick="openForm()">Tambah cerita baru</button>
+      <div>
+        <button onclick="exp()">Ekspor cadangan</button>
+        <button onclick="$('#file').click()">Impor cadangan</button>
+        <button onclick="restore()">Pulihkan cerita bawaan</button>
+      </div>
+    </div>
+    <p class="sinfo"></p>
+    <div id="elist"></div>
+    <div class="pgn" id="epg" role="navigation" aria-label="Halaman editor"></div>
+  </section>
+  <section id="guide" hidden>
+    <div class="hero"><h2>Cara penggunaan</h2><p>Panduan dari awal sampai menyimpan dan memindahkan cerita buatanmu.</p></div>
+    <div class="tools"><div>
+      <button class="btn" onclick="exp()">Ekspor cadangan sekarang</button>
+      <button onclick="$('#file').click()">Impor cadangan</button>
+      <button onclick="show('editor')">Buka Editor Guru BK</button>
+    </div></div>
+    <p class="sinfo"></p>
+
+    <details><summary>1. Mulai cepat</summary><div class="gb"><ol>
+      <li>Buka tautan aplikasi ini di Chrome atau Edge.</li>
+      <li>Isi nama sekolah di menu <b>Pengaturan</b>.</li>
+      <li>Masuk ke <b>Ruang cerita</b>, pilih jenjang (SD, SMP, atau SMA), lalu klik sebuah cerita.</li>
+      <li>Baca bagian demi bagian bersama siswa, lalu bahas pertanyaan yang ada di balon.</li>
+      <li>Untuk proyektor atau IFP, klik <b>Mode presentasi</b>.</li>
+    </ol></div></details>
+
+    <details><summary>2. Membaca cerita dan mode presentasi</summary><div class="gb"><ul>
+      <li>Pindah bagian dengan tombol <b>Sebelumnya</b> dan <b>Selanjutnya</b>, atau panah kiri dan kanan di papan ketik. Lingkaran angka membawamu langsung ke bagian yang dipilih.</li>
+      <li>Mode presentasi membuat tulisan lebih besar dan layar penuh. Tombol <b>P</b> membuka dan menutupnya.</li>
+      <li>Di mode presentasi ada tombol <b>Zoom out −</b> dan <b>Zoom in +</b> di pojok kanan atas untuk mengatur ukuran tampilan.</li>
+      <li>Untuk keluar dari mode presentasi, klik tombol <b>Kembali</b> di pojok kiri atas atau tekan <b>Esc</b>.</li>
+      <li>Kalau tulisan terasa kekecilan atau kebesaran di layar, ubah zoom di <b>Pengaturan</b>, atau tekan tombol <b>+</b> dan <b>−</b>.</li>
+      <li>Daftar cerita ditampilkan 6 per halaman. Pakai tombol nomor halaman di bawah daftar untuk melihat cerita lainnya.</li>
+    </ul></div></details>
+
+    <details><summary>3. Membuat dan mengubah cerita</summary><div class="gb"><ol>
+      <li>Buka <b>Editor Guru BK</b>, lalu klik <b>Tambah cerita baru</b>.</li>
+      <li>Isi judul, tema, jenjang, kelas (boleh kosong), dan pilih warna.</li>
+      <li>Satu cerita bisa punya 1 sampai 12 bagian. Klik <b>Tambah bagian</b> untuk menambah, <b>Naik</b> dan <b>Turun</b> untuk mengurutkan, <b>Hapus bagian</b> untuk membuang.</li>
+      <li>Judul bagian dan pertanyaan diskusi boleh dikosongkan.</li>
+      <li>Klik <b>Simpan cerita</b>. Di daftar, tombol <b>Edit</b> untuk mengubah, <b>Duplikat</b> untuk menyalin (enak untuk membuat versi SD dan SMP dari cerita yang sama), dan <b>Hapus</b> untuk membuang.</li>
+    </ol></div></details>
+
+    <details><summary>4. Menambah foto dan gambar</summary><div class="gb"><ul>
+      <li><b>Foto sampul:</b> di formulir cerita, klik <b>Tambah foto sampul</b>. Fotonya tampil di kartu cerita dan di bagian pertama.</li>
+      <li><b>Gambar tiap bagian:</b> klik <b>Tambah gambar atau foto</b> di bagian yang diinginkan. Gambar itu menggantikan ilustrasi komik saat bagian tersebut dibaca.</li>
+      <li>Foto dikecilkan otomatis (sisi terpanjang sekitar 900 piksel) supaya ruang penyimpanan tidak cepat penuh.</li>
+      <li>Jangan memasang foto wajah siswa atau data pribadi tanpa izin.</li>
+    </ul></div></details>
+
+    <details open><summary>5. Di mana data tersimpan?</summary><div class="gb"><ul>
+      <li>Cerita, foto, dan nama sekolah disimpan <b>di dalam peramban (browser) pada perangkat yang sedang dipakai</b>. Tidak dikirim ke internet dan tidak perlu akun.</li>
+      <li>Jadi data hanya muncul di laptop atau IFP yang sama, dengan peramban yang sama. Kalau pindah ke peramban lain, ke akun pengguna lain, atau memakai mode penyamaran (incognito), cerita buatanmu tidak akan kelihatan.</li>
+      <li>Data bisa hilang kalau <b>riwayat dan data situs dihapus</b>, peramban dipasang ulang, atau IFP direset. Sebagian IFP membersihkan datanya setiap kali dihidupkan ulang.</li>
+      <li>Cerita bawaan selalu tersedia di aplikasi. Cerita dan foto buatan Guru BK hanya ada di perangkatmu, jadi <b>wajib dicadangkan</b>.</li>
+      <li>Cerita dan foto disimpan di IndexedDB, ruangnya jauh lebih besar daripada 5 MB. Pemakaiannya bisa dilihat di Editor dan di halaman ini.</li>
+      <li>Zoom disimpan per perangkat dan tidak ikut dicadangkan. Nama sekolah ikut dicadangkan.</li>
+    </ul></div></details>
+
+    <details open><summary>6. Pindah ke perangkat lain tanpa kehilangan data</summary><div class="gb">
+      <h4>Di perangkat lama</h4>
+      <ol>
+        <li>Buka <b>Editor Guru BK</b>, lalu klik <b>Ekspor cadangan</b>.</li>
+        <li>Akan terunduh berkas bernama <b>cadangan-cerita-bk-(tanggal).json</b>. Isinya semua cerita, foto sampul, gambar tiap bagian, dan nama sekolah.</li>
+        <li>Simpan berkas itu di flashdisk atau Google Drive, atau kirim ke email atau WhatsApp sendiri.</li>
+      </ol>
+      <h4>Di perangkat baru</h4>
+      <ol>
+        <li>Buka tautan aplikasi ini di Chrome atau Edge.</li>
+        <li>Masuk ke <b>Editor Guru BK</b>, klik <b>Impor cadangan</b>, lalu pilih berkas .json tadi.</li>
+        <li>Periksa daftar ceritanya, lalu buka satu cerita untuk memastikan gambarnya muncul.</li>
+      </ol>
+      <p>Cerita yang sudah ada di perangkat baru dan sama dengan yang di cadangan akan dilewati. Kalau isinya berbeda, isinya diganti dengan isi dari cadangan. Cerita yang hanya ada di perangkat baru tidak dihapus.</p>
+      <p>Kalau IFP tidak bisa mengunduh atau memilih berkas, lakukan ekspor di laptop, lalu pindahkan berkasnya lewat flashdisk.</p>
+    </div></details>
+
+    <details><summary>7. Tips supaya data tidak hilang</summary><div class="gb"><ul>
+      <li>Ekspor cadangan setiap selesai menambah atau mengubah cerita, dan minimal sebulan sekali.</li>
+      <li>Simpan cadangan di dua tempat, misalnya flashdisk dan Google Drive. Beri nama dengan tanggal.</li>
+      <li>Pakai satu peramban yang sama untuk Editor.</li>
+      <li>Jangan menghapus "cookie dan data situs" sebelum mencadangkan.</li>
+      <li>Kalau muncul pesan penyimpanan penuh, ekspor cadangan dulu, lalu kurangi jumlah foto.</li>
+      <li>Sebelum IFP diperbarui atau direset oleh teknisi, ekspor cadangan terlebih dahulu.</li>
+    </ul></div></details>
+
+    <details><summary>Fitur kelas dan sudut pandang</summary><div class="gb"><ul>
+      <li><b>Sudut pandang tokoh lain:</b> di editor, isi "Sudut pandang tokoh lain" pada bagian cerita. Saat dibaca, muncul tombol untuk berpindah sisi.</li>
+      <li><b>Cerita bercabang:</b> bagian yang punya pilihan menampilkan tombol "Apa yang kamu lakukan?". Siswa memilih, lalu akibatnya tampil. Di editor, isi satu pilihan per baris pada "Pilihan cabang": Pilihan | Akibatnya | Pertanyaan | Lompat ke bagian nomor (boleh kosong).</li>
+      <li><b>Kartu perasaan:</b> siswa memilih perasaan, guru mengetuk tombolnya, grafik batang tampil di layar. Tidak ada data yang disimpan.</li>
+      <li><b>Bacakan, timer (durasi diatur di Pengaturan), nomor acak:</b> di bawah kotak cerita. Pengaturan mengatur pertanyaan yang baru muncul setelah guru menekan tombol.</li>
+      <li><b>Catatan guru</b> per cerita tersembunyi di mode presentasi. <b>Cetak lembar kerja</b> membuat lembar jawaban siswa.</li>
+      <li><b>Cerita dan foto</b> kini disimpan di IndexedDB (ruang jauh lebih besar), tetapi tetap wajib dicadangkan.</li>
+    </ul></div></details>
+
+    <details><summary>Memakai tanpa internet</summary><div class="gb"><ul>
+      <li>Setelah aplikasi pernah dibuka dengan internet satu kali, aplikasi bisa dibuka lagi di perangkat yang sama walau sedang tidak ada internet.</li>
+      <li>Sebelum jam BK di ruang yang sinyalnya lemah, buka aplikasi sekali dan lihat satu cerita sampai selesai, supaya semuanya sudah tersimpan di perangkat.</li>
+      <li>Cerita dan foto buatanmu tetap tersimpan di perangkat, jadi tetap bisa dibuka tanpa internet.</li>
+    </ul></div></details>
+
+    <details><summary>8. Kalau ada masalah</summary><div class="gb"><ul>
+      <li><b>Cerita buatan saya hilang.</b> Kemungkinan aplikasi dibuka di peramban atau perangkat lain, atau datanya sudah terhapus. Coba peramban yang dulu dipakai. Kalau tetap tidak ada, impor berkas cadangan.</li>
+      <li><b>Impor gagal.</b> Pastikan berkas yang dipilih adalah hasil <b>Ekspor cadangan</b> dari aplikasi ini, berakhiran .json, dan belum diubah manual.</li>
+      <li><b>Tombol layar penuh tidak jalan.</b> Sebagian peramban atau IFP memblokirnya. Tekan <b>F11</b>.</li>
+      <li><b>Tampilan atau huruf tampak aneh.</b> Muat ulang halaman dengan menekan <b>Ctrl + F5</b>. Kalau masih sama, hapus data peramban untuk situs ini (cadangkan ceritamu dulu), lalu buka lagi.</li>
+    </ul></div></details>
+  </section>
+</main>
+
+<footer>&copy; <span id="yr"></span> &middot; Dibuat oleh <b>Muhammad Haaratul, S.Pd.,M.M</b> &middot; HP/WA: <a href="tel:085259259767">085259259767</a></footer>
+
+<input type="file" id="file" accept=".json,application/json" hidden onchange="imp(event)">
+<input type="file" id="img" accept="image/*" hidden onchange="gotImg(event)">
+
+<dialog id="dlg">
+  <form id="form" onsubmit="saveForm(event)">
+    <h3 id="dTitle" style="font-size:1.5rem">Tambah cerita baru</h3>
+    <label for="fT">Judul cerita</label>
+    <input type="text" id="fT" required placeholder="Contoh: Sepatu Baru Dimas">
+    <label for="fTh">Tema layanan BK</label>
+    <input type="text" id="fTh" required placeholder="Contoh: Empati dan anti-bullying">
+    <label for="fL">Jenjang</label>
+    <select id="fL"><option value="SD">SD/MI sederajat</option><option value="SMP">SMP/MTs sederajat</option><option value="SMA">SMA/SMK/MA sederajat</option><option value="SEMUA">Semua jenjang</option></select>
+    <label for="fK">Kelas (boleh kosong)</label>
+    <input type="text" id="fK" placeholder="Contoh: Kelas 4–6">
+    <label>Warna ilustrasi</label>
+    <div class="sw" id="sw"></div>
+    <label>Foto sampul cerita (boleh kosong)</label><div class="im" id="cvr"></div>
+    <label for="fN">Catatan Guru BK (tidak tampil di mode presentasi)</label>
+    <textarea id="fN" placeholder="Tujuan layanan, bidang bimbingan, pertanyaan pendalaman, tindak lanjut"></textarea>
+    <div id="parts"></div>
+    <div class="fa">
+      <button type="button" onclick="dlg.close()">Batal</button>
+      <button class="btn" type="submit">Simpan cerita</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dset">
+  <h3 style="font-size:1.5rem">Pengaturan</h3>
+  <label for="sName">Nama sekolah</label>
+  <input type="text" id="sName" placeholder="Contoh: SMA Negeri 1 Makassar" oninput="set.school=this.value;applySet()">
+  <label>Ukuran tampilan (zoom)</label>
+  <div class="zm">
+    <button onclick="zoom(-.1)" aria-label="Perkecil">Zoom out −</button>
+    <output id="zv">100%</output>
+    <button onclick="zoom(.1)" aria-label="Perbesar">Zoom in +</button>
+    <button onclick="zoom(0)">Setel ulang</button>
+  </div>
+  <p style="color:var(--mute);font-size:.85rem;margin-top:.8rem">Pintasan: tombol + dan − di papan ketik juga mengubah zoom.</p>
+  <label for="sTm">Durasi timer diskusi (menit)</label>
+  <input type="number" id="sTm" min="1" max="30" style="width:6rem;font:inherit;font-weight:600;border:3px solid var(--ink);border-radius:12px;padding:.4rem .6rem" oninput="set.tm=Math.max(1,Math.min(30,Math.round(+this.value)||2));applySet()">
+  <label style="display:flex;gap:.6rem;align-items:center"><input type="checkbox" id="sHold" onchange="set.hold=this.checked;applySet()">Sembunyikan pertanyaan sampai guru menekan tombol</label>
+  <label for="sLink">Kontak atau tautan curhat BK (opsional, tampil di akhir cerita)</label>
+  <input type="text" id="sLink" oninput="set.link=this.value;applySet()" placeholder="Contoh: Ruang BK, atau tautan formulir sekolah">
+  <div class="fa"><button class="btn" onclick="dset.close()">Selesai</button></div>
+</dialog>
+
+<dialog id="adlg" class="adlg" data-tone="info" aria-labelledby="aT" aria-describedby="aM">
+  <div class="aic" id="aIc" aria-hidden="true">❓</div>
+  <h3 id="aT"></h3>
+  <p id="aM"></p>
+  <input type="text" id="aI" hidden aria-label="Isian">
+  <div class="fa"><button type="button" id="aC">Batal</button><button type="button" class="btn" id="aK">OK</button></div>
+</dialog>
+
+<script src="script.obfuscated.js"></script>
+</body>
+</html>
