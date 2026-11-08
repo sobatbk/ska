@@ -1,7 +1,7 @@
-@font-face{font-family:Bangers;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/bangers-latin-400-normal.woff2) format('woff2')}
-@font-face{font-family:Nunito;font-weight:500;font-style:normal;font-display:swap;src:url(fonts/nunito-latin-500-normal.woff2) format('woff2')}
-@font-face{font-family:Nunito;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/nunito-latin-700-normal.woff2) format('woff2')}
-@font-face{font-family:Nunito;font-weight:800;font-style:normal;font-display:swap;src:url(fonts/nunito-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:Bangers;font-weight:400;font-style:normal;font-display:swap;src:url(bangers-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:Nunito;font-weight:500;font-style:normal;font-display:swap;src:url(nunito-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:Nunito;font-weight:700;font-style:normal;font-display:swap;src:url(nunito-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:Nunito;font-weight:800;font-style:normal;font-display:swap;src:url(nunito-latin-800-normal.woff2) format('woff2')}
 :root{--ink:#1f2340;--mute:#4a5578;--y:#ffd23f;--p:#ff6b8b;--b:#38bdf8;--m:#2ec4a6}
 *{box-sizing:border-box;margin:0}
 [hidden]{display:none!important}
